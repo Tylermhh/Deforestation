@@ -1,0 +1,74 @@
+getCurrentImage -
+I moved this function into background and entity since it had checks for whether the object passed to
+was a background or entity object and to throw an exception error otherwise. Putting this method in both of those
+classes made it possible to remove the checks and the error.
+
+MoveTo* (moveToFull, moveToNotFull, ...)-
+I was a bit unsure about these methods since i thought they could be in the worldmodel class since the movements could
+be kept track of by world or the entity itself but I chose to move them into enity since I decided that it made more
+sense for each entity to know how to move and when.
+
+Adjacent -
+I moved this function into points class since it was comparing two different points. Therefore, i thought it would be
+cleanest and make most sense if one point compared its values with another point using "other" to refer to the second
+point in its instance method.
+
+GetNumFromRange-
+I chose not to move this function into any of the other classes since it did not make sense for any one class to have
+this general method that just outputs a random number.
+
+ScheduleActions-
+I was initially considering moving this into entity but decided to more to eventscheduler since it made more sense
+with the name of the method and its function. Furthermore, an entity checking what entity it is seemed off to me,
+excluding the checks for a tree or plant or sapling since they belong to the same category. For example, checking whether
+an entity is a tree or dude feels weird to have in the entity class. Lastly the method used a lot of the methods i
+moved into evenScheduler.
+
+nextPositionFairy/Dude -
+I moved these into entity since they are only called by methods I had previously moved into entity(moveTo*)
+
+addEntity -
+I moved this into worldModel since it used functions from worldModel and made sense for the world to control adding new
+entities into the world.
+
+RemoveEntity/ RemoveEntityAt -
+I moved these into worldModel since they use methods in that class and removing entities should be done by the worldModel
+class just by name alone. Also, the instance variables of worldModel is being changed more
+
+MoveEntity -
+I moved this into entity class since it accessed the entity variables and even though uses worldModel methods, I felt
+that each entity should be able to control its own movement.
+
+shiftView -
+I moved this into WorldView since it is accessing both worldModel and Viewport data with equal importance. Therefore, it
+wouldnt make sense to put it in one and not the other. So i chose to put it in worldview since this class contained both
+WorldModel and viewport
+
+DistanceSquared -
+Moved this to points class since it is just reading data from two different points
+
+findNearest-
+moved this to worldModel since it uses worldmodel instance variables. it also called entity.kind but that is from an
+entity referred to within the set of entities that worldModel has.
+
+ParseBackground -
+moved this to worldModel since it is the only remaining function outside worldModel that uses the setBackground and
+setBackgroundCell. Therefore, I can make those two methods private after this move.
+
+Parse* (all the other parse methods) -
+Moved these to worldmodel as well since they use the tryAddEntity() which is also in worldModel
+
+CreateHouse/Obstacle/* -
+Moved these to worldModel since they are only called in parsehouse/obstacle/fairy which are already in worldModel. So doing
+this allows me to make these methods create* private. I did the same for the rest of the create* methods since i felt
+that similar methods with similar functions should belong in the same worldModel class since they are all affecting
+what is part of the world.
+
+Things left in functions-
+I didnt move these into any class since they either would not have made sense to call from or belong to any of these
+classes like the getNumfromRange or load. I could not find a good enough reason to move them into any of the classes.
+I do not know if any of the functions left can be moved into any other classes without breaking the whole thing.
+
+Every other method I moved -
+I made these moves into their respective classes since the methods heavily used instance variables from the class,
+whether it be changing them or getting them.

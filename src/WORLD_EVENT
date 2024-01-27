@@ -1,0 +1,60 @@
+How to trigger event
+    Click on the summoning circles/stars on the top right and bottom left of the map.
+
+What should happen
+    The summoning circle will activate, turn the area around it from grass to ruined land and start summoning demons.
+
+    Can be confirmed by the printed message "SUMMONING DEMONS" and the circle starting to animate.
+
+    Then after a small delay, it will spawn in 6 demons and a crater will form where the demons spawned in,
+    along with a message confirming successful summoning
+
+New Entity
+    The new entities are the demons that spawn in and they will chase down the fairies to corrupt them and turn them evil
+
+    When all fairies are corrupted, demons will return back to a summoning circle and go back to their world (disappear).
+
+Affected Entites
+    The fairies that get in caught by the demons will become corrupted and turn into EvilFairies which is shown by
+    some red highlights and a red aura.
+
+    The EvilFairies will now chase down the Dudes and try to kill all of them.
+
+    When the dudes' health falls to 50% or less, they will get a boost and dramatically increase movement speed to try
+    to keep cutting down trees while outrunning the evil fairies.
+
+    Upon reaching 0 health, the dudes turn into obstacles with the image of a tombstone.
+
+    When there are no more threats to nature (no more dudes) the fairies will return to their original state and try to
+    restore the world by replanting saplings where stumps are left.
+
+Extra Detail
+    Demons will only chase good fairies so when all fairies are corrupted they will not do anything.
+    It doesnt make sense to summon demons that do nothing so the summoning circle can only summon demons if there are
+    fairies to corrupt. They will however activate even if no good fairies are left.
+
+    I also added a fairy_count to keep track of how many good fairies are left in order to implement the above detail.
+
+Design decision
+
+    EvilFairy
+    I chose to make a new class and entity "EvilFairy" since I wanted their behavior to be distinctly different without
+    messing with the original behavior. The main reason for this is because I planned to revert the evil fairies back
+    into good fairies. It also felt more natural to have a new entity to follow the pattern of DudeFull and DudeNotFull.
+
+
+    Tomb
+    I chose to not have a new entity called tomb or grave and simply passed in the tomb image to the obstacle entity
+    since it wouldnt do anything anyways.
+
+    I chose the obstacle entity since it is the one non-moving entity that does not interact with any of the other
+    entities' actions.
+
+    If I had used -
+    - tree -> dudes will try to chop down the tombs
+    - house -> dudes will try to tranform at the tombs
+    - summoning circle -> will result in weird interaction when clicked on
+    - sapling -> tombs will turn into trees (which could be interesting but I decided against it)
+    - stump -> fairies will try to turn tombs into saplings (I also considered this and it might make sense if I had
+    dude corpses which will fertilize the soil over time and make it possible for fairies to plant saplings but decided
+    to focus on making the rest of the simulation smoother than implement more stuff)
